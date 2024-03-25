@@ -1,0 +1,244 @@
+  local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local Window = Library.CreateLib("made by gall", "GrapeTheme")
+local Tab = Window:NewTab("Auto Hatch")
+local Section = Tab:NewSection("Auto Hatch")
+Section:NewButton("Egg 1 basic", "ButtonInfo", function()
+    local args = {
+        [1] = "area1 basic",
+        [2] = 8
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("VendorService"):WaitForChild("RF"):WaitForChild("Purchase"):InvokeServer(unpack(args))
+end)
+Section:NewButton("Egg 1 golden", "ButtonInfo", function()
+    local args = {
+        [1] = "area1 golden",
+        [2] = 8
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("VendorService"):WaitForChild("RF"):WaitForChild("Purchase"):InvokeServer(unpack(args))
+end)
+Section:NewButton("Egg 2 basic", "ButtonInfo", function()
+    local args = {
+        [1] = "area2 basic",
+        [2] = 8
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("VendorService"):WaitForChild("RF"):WaitForChild("Purchase"):InvokeServer(unpack(args))
+end)
+Section:NewButton("Egg 2 golden", "ButtonInfo", function()
+    local args = {
+        [1] = "area2 golden",
+        [2] = 8
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("VendorService"):WaitForChild("RF"):WaitForChild("Purchase"):InvokeServer(unpack(args))
+end)
+Section:NewButton("Egg 3 basic", "ButtonInfo", function()
+    local args = {
+        [1] = "area3 basic",
+        [2] = 8
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("VendorService"):WaitForChild("RF"):WaitForChild("Purchase"):InvokeServer(unpack(args))
+end)
+Section:NewButton("Egg 3 golden", "ButtonInfo", function()
+    local args = {
+        [1] = "area3 golden",
+        [2] = 8
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("VendorService"):WaitForChild("RF"):WaitForChild("Purchase"):InvokeServer(unpack(args))
+end)
+Section:NewButton("Egg 4 basic", "ButtonInfo", function()
+    local args = {
+        [1] = "area4 basic",
+        [2] = 8
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("VendorService"):WaitForChild("RF"):WaitForChild("Purchase"):InvokeServer(unpack(args))
+end)
+Section:NewButton("Egg 4 golden", "ButtonInfo", function()
+    local args = {
+        [1] = "area4 golden",
+        [2] = 8
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("VendorService"):WaitForChild("RF"):WaitForChild("Purchase"):InvokeServer(unpack(args))
+end)
+Section:NewButton("Egg 5 basic", "ButtonInfo", function()
+    local args = {
+        [1] = "area5 basic",
+        [2] = 8
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("VendorService"):WaitForChild("RF"):WaitForChild("Purchase"):InvokeServer(unpack(args))
+end)
+Section:NewButton("Egg 5 golden", "ButtonInfo", function()
+    local args = {
+        [1] = "area5 golden",
+        [2] = 8
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("VendorService"):WaitForChild("RF"):WaitForChild("Purchase"):InvokeServer(unpack(args))
+end)
+Section:NewButton("Egg 6 basic", "ButtonInfo", function()
+    local args = {
+        [1] = "area6 basic",
+        [2] = 8
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("VendorService"):WaitForChild("RF"):WaitForChild("Purchase"):InvokeServer(unpack(args))
+end)
+Section:NewButton("Egg 6 golden", "ButtonInfo", function()
+    local args = {
+        [1] = "area6 golden",
+        [2] = 8
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("VendorService"):WaitForChild("RF"):WaitForChild("Purchase"):InvokeServer(unpack(args))
+end)
+Section:NewButton("Egg 7 basic", "ButtonInfo", function()
+    local args = {
+        [1] = "area7 basic",
+        [2] = 8
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("VendorService"):WaitForChild("RF"):WaitForChild("Purchase"):InvokeServer(unpack(args))
+end)
+Section:NewButton("Egg 7 golden", "ButtonInfo", function()
+    local args = {
+        [1] = "area7 golden",
+        [2] = 8
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("VendorService"):WaitForChild("RF"):WaitForChild("Purchase"):InvokeServer(unpack(args))
+end)
+Section:NewButton("Egg 8 basic", "ButtonInfo", function()
+    local args = {
+        [1] = "area8 basic",
+        [2] = 8
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("VendorService"):WaitForChild("RF"):WaitForChild("Purchase"):InvokeServer(unpack(args))
+end)
+Section:NewButton("Egg 8 golden", "ButtonInfo", function()
+    local args = {
+        [1] = "area8 golden",
+        [2] = 8
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("VendorService"):WaitForChild("RF"):WaitForChild("Purchase"):InvokeServer(unpack(args))
+end)
+Section:NewButton("Egg 9 basic", "ButtonInfo", function()
+    local args = {
+        [1] = "area9 basic",
+        [2] = 8
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("VendorService"):WaitForChild("RF"):WaitForChild("Purchase"):InvokeServer(unpack(args))
+end)
+Section:NewButton("Egg 9 golden", "ButtonInfo", function()
+    local args = {
+        [1] = "area9 golden",
+        [2] = 8
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("VendorService"):WaitForChild("RF"):WaitForChild("Purchase"):InvokeServer(unpack(args))
+end)
+Section:NewButton("Egg 10 basic", "ButtonInfo", function()
+    local args = {
+        [1] = "area10 basic",
+        [2] = 8
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("VendorService"):WaitForChild("RF"):WaitForChild("Purchase"):InvokeServer(unpack(args))
+end)
+Section:NewButton("Egg 10 golden", "ButtonInfo", function()
+    local args = {
+        [1] = "area10 golden",
+        [2] = 8
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("VendorService"):WaitForChild("RF"):WaitForChild("Purchase"):InvokeServer(unpack(args))
+end)
+Section:NewButton("Egg 11 basic", "ButtonInfo", function()
+    local args = {
+        [1] = "area11 basic",
+        [2] = 8
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("VendorService"):WaitForChild("RF"):WaitForChild("Purchase"):InvokeServer(unpack(args))
+end)
+Section:NewButton("Egg 11 golden", "ButtonInfo", function()
+    local args = {
+        [1] = "area11 golden",
+        [2] = 8
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("VendorService"):WaitForChild("RF"):WaitForChild("Purchase"):InvokeServer(unpack(args))
+end)
+Section:NewButton("Egg 12 basic", "ButtonInfo", function()
+    local args = {
+        [1] = "area12 basic",
+        [2] = 8
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("VendorService"):WaitForChild("RF"):WaitForChild("Purchase"):InvokeServer(unpack(args))
+end)
+Section:NewButton("Egg 12 golden", "ButtonInfo", function()
+    local args = {
+        [1] = "area12 golden",
+        [2] = 8
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("VendorService"):WaitForChild("RF"):WaitForChild("Purchase"):InvokeServer(unpack(args))
+end)
+Section:NewButton("Egg 13 basic", "ButtonInfo", function()
+    local args = {
+        [1] = "area13 basic",
+        [2] = 8
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("VendorService"):WaitForChild("RF"):WaitForChild("Purchase"):InvokeServer(unpack(args))
+end)
+Section:NewButton("Egg 13 golden", "ButtonInfo", function()
+    local args = {
+        [1] = "area13 golden",
+        [2] = 8
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("VendorService"):WaitForChild("RF"):WaitForChild("Purchase"):InvokeServer(unpack(args))
+end)
+Section:NewButton("Egg 14 basic", "ButtonInfo", function()
+    local args = {
+        [1] = "area18 basic",
+        [2] = 8
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("VendorService"):WaitForChild("RF"):WaitForChild("Purchase"):InvokeServer(unpack(args))
+end)
+Section:NewButton("Egg 14 golden", "ButtonInfo", function()
+    local args = {
+        [1] = "area19 golden",
+        [2] = 8
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("VendorService"):WaitForChild("RF"):WaitForChild("Purchase"):InvokeServer(unpack(args))
+end)
+Section:NewButton("Egg 15 basic", "ButtonInfo", function()
+    local args = {
+        [1] = "area20 basic",
+        [2] = 8
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("VendorService"):WaitForChild("RF"):WaitForChild("Purchase"):InvokeServer(unpack(args))
+end)
+Section:NewButton("Egg 15 golden", "ButtonInfo", function()
+    local args = {
+        [1] = "area21 golden",
+        [2] = 8
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("VendorService"):WaitForChild("RF"):WaitForChild("Purchase"):InvokeServer(unpack(args))
+end)
