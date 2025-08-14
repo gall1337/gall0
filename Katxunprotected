@@ -1,0 +1,265 @@
+-- Full GUI + KAT-style Aimlock + FOV
+-- Client-side LocalScript
+
+-- Services
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+local TweenService = game:GetService("TweenService")
+local Camera = workspace.CurrentCamera
+local LocalPlayer = Players.LocalPlayer
+
+-- GUI setup
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "KatXAutoFarmGui"
+ScreenGui.ResetOnSpawn = false
+ScreenGui.Parent = LocalPlayer:WaitForChild("PlayerGui")
+
+local Frame = Instance.new("Frame")
+Frame.Size = UDim2.new(0, 450, 0, 420)
+Frame.Position = UDim2.new(0.5, -225, 0, 40)
+Frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+Frame.Active = true
+Frame.Draggable = true
+Frame.Parent = ScreenGui
+
+local Title = Instance.new("TextLabel", Frame)
+Title.Size = UDim2.new(0, 200, 0, 35)
+Title.Position = UDim2.new(0.5, -100, 0, 5)
+Title.Text = "KAT X GUI"
+Title.Font = Enum.Font.SourceSansBold
+Title.TextSize = 20
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.BackgroundTransparency = 1
+
+-- Close/Open buttons
+local CloseButton = Instance.new("TextButton", Frame)
+CloseButton.Size = UDim2.new(0, 60, 0, 35)
+CloseButton.Position = UDim2.new(1, -65, 0, 5)
+CloseButton.Text = "Close"
+CloseButton.BackgroundColor3 = Color3.fromRGB(80, 0, 0)
+CloseButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+CloseButton.Font = Enum.Font.SourceSansBold
+CloseButton.TextSize = 18
+
+local OpenButton = Instance.new("TextButton", ScreenGui)
+OpenButton.Size = UDim2.new(0, 80, 0, 35)
+OpenButton.Position = UDim2.new(1, -85, 0, 5)
+OpenButton.Text = "Open GUI"
+OpenButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+OpenButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+OpenButton.Font = Enum.Font.SourceSansBold
+OpenButton.TextSize = 18
+OpenButton.Visible = false
+
+CloseButton.MouseButton1Click:Connect(function()
+    Frame.Visible = false
+    OpenButton.Visible = true
+end)
+OpenButton.MouseButton1Click:Connect(function()
+    Frame.Visible = true
+    OpenButton.Visible = false
+end)
+
+-- Tabs
+local tabs = {"Follow", "Aimlock", "FOV", "Credits"}
+local tabFrames = {}
+local TabContainer = Instance.new("Frame", Frame)
+TabContainer.Size = UDim2.new(1, 0, 0, 40)
+TabContainer.Position = UDim2.new(0, 0, 0, 50)
+TabContainer.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+
+for i, tname in ipairs(tabs) do
+    local btn = Instance.new("TextButton", TabContainer)
+    btn.Text = tname
+    btn.Size = UDim2.new(0, 90, 1, 0)
+    btn.Position = UDim2.new(0, (i - 1) * 90, 0, 0)
+    btn.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+    btn.TextColor3 = Color3.fromRGB(255, 255, 255)
+    btn.Font = Enum.Font.SourceSansBold
+    btn.TextSize = 18
+
+    local frame = Instance.new("Frame", Frame)
+    frame.Size = UDim2.new(1, 0, 1, -90)
+    frame.Position = UDim2.new(0, 0, 0, 90)
+    frame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    frame.Visible = false
+    tabFrames[tname] = frame
+
+    btn.MouseButton1Click:Connect(function()
+        for _, f in pairs(tabFrames) do f.Visible = false end
+        frame.Visible = true
+    end)
+end
+
+-- =========================
+-- FOLLOW TAB
+-- =========================
+local followFrame = tabFrames["Follow"]
+local followToggle = Instance.new("TextButton", followFrame)
+followToggle.Size = UDim2.new(0, 250, 0, 50)
+followToggle.Position = UDim2.new(0.5, -125, 0, 30)
+followToggle.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+followToggle.TextColor3 = Color3.fromRGB(255, 255, 255)
+followToggle.Font = Enum.Font.SourceSansBold
+followToggle.TextSize = 20
+followToggle.Text = "Follow: OFF"
+
+local followEnabled = false
+local followTarget = nil
+local followIndex = 0
+local followDistance = 0.8
+
+followToggle.MouseButton1Click:Connect(function()
+    followEnabled = not followEnabled
+    followToggle.Text = followEnabled and "Follow: ON" or "Follow: OFF"
+end)
+
+local function getNextFollow()
+    local all = Players:GetPlayers()
+    if #all <= 1 then return nil end
+    followIndex = followIndex + 1
+    if followIndex > #all then followIndex = 1 end
+    if all[followIndex] == LocalPlayer then return getNextFollow() end
+    return all[followIndex]
+end
+
+task.spawn(function()
+    while true do
+        if followEnabled then followTarget = getNextFollow() else followTarget = nil end
+        task.wait(0.8)
+    end
+end)
+
+RunService.RenderStepped:Connect(function()
+    if followEnabled and followTarget and followTarget.Character and followTarget.Character:FindFirstChild("HumanoidRootPart") then
+        local myChar = LocalPlayer.Character
+        if myChar and myChar:FindFirstChild("HumanoidRootPart") then
+            local hrp = followTarget.Character.HumanoidRootPart
+            myChar.HumanoidRootPart.CFrame = CFrame.new(hrp.Position - hrp.CFrame.LookVector * followDistance, hrp.Position)
+        end
+    end
+end)
+
+-- =========================
+-- AIMLOCK TAB
+-- =========================
+local aimlockFrame = tabFrames["Aimlock"]
+local aimToggle = Instance.new("TextButton", aimlockFrame)
+aimToggle.Size = UDim2.new(0, 250, 0, 50)
+aimToggle.Position = UDim2.new(0.5, -125, 0, 30)
+aimToggle.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+aimToggle.TextColor3 = Color3.fromRGB(255, 255, 255)
+aimToggle.Font = Enum.Font.SourceSansBold
+aimToggle.TextSize = 20
+aimToggle.Text = "Aimlock: OFF"
+
+local headButton = Instance.new("TextButton", aimlockFrame)
+headButton.Size = UDim2.new(0, 100, 0, 35)
+headButton.Position = UDim2.new(0, 50, 0, 100)
+headButton.Text = "Head"
+headButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+headButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+
+local torsoButton = Instance.new("TextButton", aimlockFrame)
+torsoButton.Size = UDim2.new(0, 100, 0, 35)
+torsoButton.Position = UDim2.new(0, 160, 0, 100)
+torsoButton.Text = "Torso"
+torsoButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+torsoButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+
+local aimlockEnabled = false
+local aimlockTargetPartName = "Head"
+local aimlockMaxDistance = 150
+
+aimToggle.MouseButton1Click:Connect(function()
+    aimlockEnabled = not aimlockEnabled
+    aimToggle.Text = aimlockEnabled and "Aimlock: ON" or "Aimlock: OFF"
+end)
+
+headButton.MouseButton1Click:Connect(function() aimlockTargetPartName = "Head" end)
+torsoButton.MouseButton1Click:Connect(function() aimlockTargetPartName = "UpperTorso" end)
+
+-- =========================
+-- FOV TAB
+-- =========================
+local fovFrame = tabFrames["FOV"]
+local fovSlider = Instance.new("TextBox", fovFrame)
+fovSlider.Size = UDim2.new(0, 250, 0, 50)
+fovSlider.Position = UDim2.new(0.5, -125, 0, 30)
+fovSlider.Text = tostring(Camera.FieldOfView)
+fovSlider.ClearTextOnFocus = false
+fovSlider.TextColor3 = Color3.fromRGB(255, 255, 255)
+fovSlider.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+fovSlider.Font = Enum.Font.SourceSansBold
+fovSlider.TextSize = 20
+
+fovSlider.FocusLost:Connect(function()
+    local val = tonumber(fovSlider.Text)
+    if val then Camera.FieldOfView = math.clamp(val, 70, 120) end
+end)
+
+-- =========================
+-- CREDITS TAB
+-- =========================
+local creditsFrame = tabFrames["Credits"]
+local creditsLabel = Instance.new("TextLabel", creditsFrame)
+creditsLabel.Size = UDim2.new(1, -20, 1, -20)
+creditsLabel.Position = UDim2.new(0, 10, 0, 10)
+creditsLabel.Text = "Made By Rltuzi"
+creditsLabel.BackgroundTransparency = 1
+creditsLabel.TextScaled = true
+creditsLabel.TextWrapped = true
+creditsLabel.Font = Enum.Font.SourceSansBold
+
+-- RGB cycling text
+task.spawn(function()
+    while true do
+        for i = 0, 1, 0.01 do
+            creditsLabel.TextColor3 = Color3.fromHSV(i, 1, 1)
+            task.wait(0.03)
+        end
+    end
+end)
+
+-- =========================
+-- AIMLOCK LOOP
+-- =========================
+local function getClosestPlayer()
+    local closest, dist = nil, math.huge
+    local myChar = LocalPlayer.Character
+    if not myChar or not myChar:FindFirstChild("HumanoidRootPart") then return nil end
+    local myPos = myChar.HumanoidRootPart.Position
+
+    for _, player in pairs(Players:GetPlayers()) do
+        if player ~= LocalPlayer and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+            local hum = player.Character:FindFirstChildOfClass("Humanoid")
+            if hum and hum.Health > 0 then
+                local part = player.Character:FindFirstChild(aimlockTargetPartName) or player.Character:FindFirstChild("HumanoidRootPart")
+                if part then
+                    local magnitude = (part.Position - myPos).Magnitude
+                    if magnitude < dist and magnitude <= aimlockMaxDistance then
+                        dist = magnitude
+                        closest = part
+                    end
+                end
+            end
+        end
+    end
+    return closest
+end
+
+RunService.RenderStepped:Connect(function(delta)
+    if aimlockEnabled then
+        local targetPart = getClosestPlayer()
+        if targetPart and Camera then
+            local camPos = Camera.CFrame.Position
+            local dir = (targetPart.Position - camPos)
+            local distance = dir.Magnitude
+            if distance > 0 then
+                local newCFrame = CFrame.new(camPos, camPos + dir)
+                Camera.CFrame = Camera.CFrame:Lerp(newCFrame, 0.25) -- smooth
+            end
+        end
+    end
+end)
