@@ -1,3 +1,66 @@
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local Window = Library.CreateLib("Kat X Private", "Midnight")
+local Tab = Window:NewTab("Main")
+local Section = Tab:NewSection("Main")
+Section:NewButton("Auto equip knife", "Bind F", function()
+local player = game:GetService("Players").LocalPlayer
+local uis = game:GetService("UserInputService")
+
+local autoEquipEnabled = false -- Начальное состояние (выключено)
+local toggleKey = Enum.KeyCode.F -- Клавиша для переключения (можно изменить)
+
+-- Функция для взятия первого инструмента в руки
+local function equipFirstTool()
+    if not player.Character or not player.Character:FindFirstChild("Humanoid") then return end
+    
+    local backpack = player:FindFirstChild("Backpack")
+    if not backpack then return end
+    
+    local firstTool = backpack:FindFirstChildOfClass("Tool")
+    if firstTool then
+        player.Character.Humanoid:EquipTool(firstTool)
+        print(" Взял в руки: " .. firstTool.Name)
+    end
+end
+
+-- Toggle-функция (вкл/выкл)
+local function toggleAutoEquip()
+    autoEquipEnabled = not autoEquipEnabled
+    print(autoEquipEnabled and " Автоподбор ВКЛ" or " Автоподбор ВЫКЛ")
+    
+    if autoEquipEnabled then
+        equipFirstTool() -- Сразу берем инструмент при включении
+    end
+end
+
+-- Обработчик клавиши (F для переключения)
+uis.InputBegan:Connect(function(input, gameProcessed)
+    if input.KeyCode == toggleKey and not gameProcessed then
+        toggleAutoEquip()
+    end
+end)
+
+-- Автоматически берет инструмент при появлении персонажа
+player.CharacterAdded:Connect(function(character)
+    character:WaitForChild("Humanoid")
+    if autoEquipEnabled then
+        equipFirstTool()
+    end
+end)
+
+-- Если персонаж уже есть при запуске
+if player.Character and autoEquipEnabled then
+    equipFirstTool()
+end
+end)
+Section:NewButton("Autoclicker", "ButtonInfo", function()
+--[[
+    WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
+]]
+getgenv().key = "Hostile"
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Hosvile/The-telligence/main/MC%20KSystem%202"))()
+end)
+Section:NewButton("Teleport", "ButtonInfo", function()
 -- Full GUI + KAT-style Aimlock + FOV
 -- Client-side LocalScript
 
@@ -262,4 +325,6 @@ RunService.RenderStepped:Connect(function(delta)
             end
         end
     end
+end)
+
 end)
